@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/models/enitys/model_item_danhmuc.dart';
 import 'package:food_app/public/paints/paint_food.dart';
 
 class DetailFood extends StatefulWidget {
+  ItemDanhmuc ?itemDanhmuc;
+  DetailFood({this.itemDanhmuc});
   @override
   _DetailFoodState createState() => _DetailFoodState();
 }
@@ -21,15 +24,18 @@ class _DetailFoodState extends State<DetailFood> {
               Positioned(
                 top: 0,
                 child: Container(
-                  height: MediaQuery.of(context).size.height/2,
-                    child: Image.network("https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466__340.jpg",fit: BoxFit.fill,)),
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: Image.network(
+                    widget.itemDanhmuc!.image_item!,
+                    fit: BoxFit.fill,
+                  ),),
               ),
               Positioned(
                 bottom: 0,
                 child: CustomPaint(
                   painter: PaintFood(),
                   child: Container(
-                    height: MediaQuery.of(context).size.height/2,
+                    height: MediaQuery.of(context).size.height / 2,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: EdgeInsets.all(12),
@@ -38,9 +44,9 @@ class _DetailFoodState extends State<DetailFood> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            alignment: Alignment.center,
-                            width: double.infinity,
-                              child: Text("Food with Toan Barcelona")),
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              child: Text(widget.itemDanhmuc!.name_item!,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),),
                           Container(
                             width: double.infinity,
                             height: 30,
@@ -48,8 +54,7 @@ class _DetailFoodState extends State<DetailFood> {
                               children: [
                                 InkWell(
                                   splashColor: Colors.amber,
-                                  onTap: (){
-                                  },
+                                  onTap: () {},
                                   borderRadius: BorderRadius.circular(15),
                                   child: Container(
                                     alignment: Alignment.center,
@@ -73,7 +78,7 @@ class _DetailFoodState extends State<DetailFood> {
                                     child: Text("1")),
                                 InkWell(
                                   splashColor: Colors.amber,
-                                  onTap: (){},
+                                  onTap: () {},
                                   borderRadius: BorderRadius.circular(15),
                                   child: Container(
                                     alignment: Alignment.center,
@@ -86,15 +91,35 @@ class _DetailFoodState extends State<DetailFood> {
                                     child: Text("+"),
                                   ),
                                 ),
-                                Expanded(child: Container(alignment: Alignment.center,child: Text("100000 Vnd",style: TextStyle(fontSize: 17),))),
+                                Expanded(
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        child: RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: "${widget.itemDanhmuc!.price_item!}"
+                                                ),
+                                                TextSpan(
+                                                  text: "Vnd"
+                                                ),
+                                              ]
+                                            ),
+                                        ),),),
                               ],
                             ),
                           ),
-                          Text("Intro Food",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),),
-                          Text("ABCCCCC"),
+                          Text(
+                            "Intro",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
+                          ),
+                          Text(widget.itemDanhmuc!.intro_item!,style: TextStyle(fontSize: 18),),
                           InkWell(
                             borderRadius: BorderRadius.circular(15),
-                            onTap: (){},
+                            onTap: () {},
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
@@ -103,7 +128,12 @@ class _DetailFoodState extends State<DetailFood> {
                               height: 50,
                               alignment: Alignment.center,
                               width: double.infinity,
-                              child: Text("Add to Cart",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+                              child: Text(
+                                "Add to Cart",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
                             ),
                           ),
                         ],

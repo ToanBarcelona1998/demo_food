@@ -8,7 +8,7 @@ class ItemDanhmuc{
   String ?intro_item;
   String ?image_item;
   int ?id_danhmuc;
-  ItemDanhmuc();
+  ItemDanhmuc({this.id_item,this.name_item,this.price_item,this.intro_item,this.image_item,this.id_danhmuc});
   factory ItemDanhmuc.fromJson(Map<String, dynamic> map)=>_$ItemDanhmucFromJson(map);
   toJson()=>_$ItemDanhmucToJson(this);
 }

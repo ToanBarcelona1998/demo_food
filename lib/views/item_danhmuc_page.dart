@@ -100,13 +100,14 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                 SizedBox(
                   height: 18,
                 ),
-                Container(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
-                    "Item ${widget.item_name}",
+                    "${widget.item_name}",
                     style: TextStyle(
+                        color: Color(0xff000000),
                         fontFamily: "Chango",
-                        fontSize: 22,
-                        decoration: TextDecoration.underline),
+                        fontSize: 22,),
                   ),
                 ),
                 Expanded(
@@ -121,8 +122,20 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.only(top: 12),
                                 child: InkWell(
-                                  onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailFood()));
+                                  onTap: () {
+                                    ItemDanhmuc item;
+                                    int id_item=snapshot.data![index].id_item!;
+                                    String name_item=snapshot.data![index].name_item!;
+                                    int price_item=snapshot.data![index].price_item!;
+                                    String intro_item=snapshot.data![index].intro_item!;
+                                    String image_item=snapshot.data![index].image_item!;
+                                    int id_danhmuc=snapshot.data![index].id_danhmuc!;
+                                    item=ItemDanhmuc(id_item: id_item,name_item: name_item,price_item: price_item,intro_item: intro_item,image_item: image_item,id_danhmuc: id_danhmuc);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailFood(itemDanhmuc: item,)));
                                   },
                                   splashColor: Color(0xff9cc57c),
                                   child: Container(
@@ -151,21 +164,24 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                snapshot.data![index].name_item!,
+                                                snapshot
+                                                    .data![index].name_item!,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
                                                     color: Color(0xffdd9f69)),
                                               ),
                                               Text(
-                                                snapshot.data![index].intro_item!,
+                                                snapshot
+                                                    .data![index].intro_item!,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
                                                 "${snapshot.data![index].price_item!} Vnd",
                                                 style: TextStyle(
                                                     color: Color(0xff252a3e),
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),

@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                       painter: PaintAppBar(),
                       child: Container(
                         alignment: Alignment.bottomRight,
-                        height: MediaQuery.of(context).size.height / 5,
+                        height: MediaQuery.of(context).size.height / 4,
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.only(right: 12),
@@ -92,8 +92,11 @@ class _HomePageState extends State<HomePage> {
                                             .data![index].image_danhmuc!),
                                       ),
                                     ),
-                                    Text(
-                                      snapshot.data![index].name_danhmuc!,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        snapshot.data![index].name_danhmuc!,
+                                      ),
                                     ),
                                   ],
                                 ),

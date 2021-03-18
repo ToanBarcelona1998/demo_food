@@ -16,7 +16,6 @@ class ItemDanhmucService{
     List<ItemDanhmuc> listItem=[];
     Database database=await MyDatabase().database;
     List<Map<String,dynamic>> listMap=await database.rawQuery("Select * From item_danhmuc where id_danhmuc=$id_danhmuc");
-    print(listMap.toString());
 
     listMap.forEach((element) {
       ItemDanhmuc itemDanhmuc=ItemDanhmuc.fromJson(element);
