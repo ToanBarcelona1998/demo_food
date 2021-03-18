@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/blocs/bloc_item_danhmuc.dart';
 import 'package:food_app/models/enitys/model_item_danhmuc.dart';
+import 'package:food_app/views/detail_item_food.dart';
 
 class ItemDanhmucPage extends StatefulWidget {
   String? item_name;
@@ -120,7 +121,9 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.only(top: 12),
                                 child: InkWell(
-                                  onTap: (){},
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailFood()));
+                                  },
                                   splashColor: Color(0xff9cc57c),
                                   child: Container(
                                     height: 70,
