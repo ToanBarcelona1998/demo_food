@@ -1,8 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/models/services/danhmuc_service.dart';
+import 'package:food_app/blocs/bloc_danhmuc.dart';
+import 'package:food_app/blocs/bloc_item_danhmuc.dart';
+import 'package:food_app/models/enitys/model_danhmuc.dart';
 import 'package:food_app/public/paints/paint_app_bar.dart';
+import 'package:food_app/views/item_danhmuc_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  DanhmucBloc? _danhmucBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _danhmucBloc = DanhmucBloc();
+    _danhmucBloc!.getAllDanhmuc();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _danhmucBloc!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,39 +55,52 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 17),
                     Expanded(
-                      child: Container(
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 8,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: (){},
-                                  child: Container(
-                                    height: 70,
-                                    width: 60,
-                                    decoration: BoxDecoration(
+                      child: StreamBuilder<List<Danhmuc>>(
+                        stream: _danhmucBloc!.stream,
+                        builder: (context, snapshot) {
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ItemDanhmucPage(item_name: snapshot.data![index].name_danhmuc,item_danhmuc_id: snapshot.data![index].id_danhmuc,)));
+                                      },
                                       borderRadius: BorderRadius.circular(15),
-                                      color: Color(0xffe6f0fa),
+                                      splashColor: Colors.deepOrangeAccent,
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Color(0xffe6f0fa),
+                                        ),
+                                        child: Image.network(snapshot
+                                            .data![index].image_danhmuc!),
+                                      ),
                                     ),
-                                    child: Image.network(
-                                        "https://img.icons8.com/plasticine/2x/cute-pumpkin.png"),
-                                  ),
+                                    Text(
+                                      snapshot.data![index].name_danhmuc!,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Text("Food ${index + 1}"),
-                              ],
-                            ),
-                          ),
-                        ),
+                              ),
+                            )
+                          : CircularProgressIndicator();
+                        },
                       ),
                     ),
                   ],
@@ -92,7 +129,8 @@ class HomePage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           children: [
-                            Card(
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
                               child: Image.network(
                                   "https://anh.24h.com.vn//upload/2-2017/images/2017-06-22/1498132918-thumbnail.jpg"),
                             ),
