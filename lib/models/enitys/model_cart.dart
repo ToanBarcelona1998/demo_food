@@ -10,5 +10,5 @@ class CartModel{
   CartModel({this.id_cart,this.name_cart,this.price_one_item,this.image_cart,this.number_cart});
 
   factory CartModel.fromJson(Map<String,dynamic> map)=>_$CartModelFromJson(map);
-  toJson()=>_$CartModelToJson(this);
+  Map<String,dynamic> toJson()=>_$CartModelToJson(this);
 }

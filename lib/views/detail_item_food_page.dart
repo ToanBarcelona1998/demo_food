@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/models/enitys/model_item_danhmuc.dart';
 import 'package:food_app/public/paints/paint_food.dart';
+import 'package:food_app/views/cart_page.dart';
 
 class DetailFood extends StatefulWidget {
   ItemDanhmuc? itemDanhmuc;
@@ -73,7 +74,9 @@ class _DetailFoodState extends State<DetailFood> {
                           top: MediaQuery.of(context).padding.top + 8,
                           right: 8,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                            },
                             splashColor: Colors.amber,
                             child: CircleAvatar(
                               backgroundColor: Color(0xfff4a483),
