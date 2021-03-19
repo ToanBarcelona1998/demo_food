@@ -6,6 +6,7 @@ class CartBloc{
   PublishSubject<List<CartModel>> _publishSubject=PublishSubject();
   Stream<List<CartModel>> get stream=>_publishSubject.stream;
 
+
   getAllCart()async{
     List<CartModel> list=await CartService().getAllCart();
     if(list.length==0){
@@ -14,23 +15,26 @@ class CartBloc{
       _publishSubject.sink.add(list);
     }
   }
-  addCart(CartModel cartModel){
-    if(CartService().addCart(cartModel)==true){
-      getAllCart();
+  addCart(CartModel cartModel)async{
+    bool check=await CartService().addCart(cartModel);
+    if(check==true){
+      await getAllCart();
     }else{
       _publishSubject.sink.addError("Add item to cart fail");
     }
   }
-  delAllCart(){
-    if(CartService().delAllCart()==true){
-      getAllCart();
+  delAllCart()async{
+    bool check=await CartService().delAllCart();
+    if(check==true){
+      await getAllCart();
     }else{
-      _publishSubject.sink.addError("Delete item cart fail");
+      _publishSubject.sink.addError("Delete all item cart fail");
     }
   }
-  delCartId(int id){
-    if(CartService().delCartId(id)==true){
-      getAllCart();
+  delCartId(int id)async{
+    bool check=await CartService().delCartId(id);
+    if(check==true){
+      await getAllCart();
     }else{
       _publishSubject.sink.addError("Delete item cart where id=$id fail");
     }

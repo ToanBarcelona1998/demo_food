@@ -16,7 +16,6 @@ class CartService{
     List<CartModel> listCart=[];
     Database database=await MyDatabase().database;
     List<Map<String,dynamic>> listMap=await database.rawQuery("Select* From cart");
-    print(listMap.toString());
     listMap.forEach((element) {
       CartModel cartModel=CartModel.fromJson(element);
       listCart.add(cartModel);
@@ -33,21 +32,24 @@ class CartService{
   }
   Future<bool> delAllCart()async{
     Database database=await MyDatabase().database;
+    await database.rawDelete("Delete From cart");
     List<Map<String,dynamic>> listMap=await database.rawQuery("Select* From cart");
     int count=listMap.length;
-    int idDel=await database.rawDelete("Delete From cart");
-
-    if(idDel!=count){
+    if(count==0){
+      return true;
+    }
+    else{
       return false;
     }
-    return true;
   }
   Future<bool> delCartId(int id)async{
     Database database=await MyDatabase().database;
-    int idDel=await database.rawDelete("Delete From cart where id_cart=$id");
-    if(idDel!=id){
+    int idDel=await database.rawDelete("Delete From cart where id_cart=?",[id]);
+    if(idDel==1){
+      return true;
+    }
+    else{
       return false;
     }
-    return true;
   }
 }

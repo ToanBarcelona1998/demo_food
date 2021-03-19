@@ -4,6 +4,8 @@ import 'package:food_app/models/enitys/model_item_danhmuc.dart';
 import 'package:food_app/public/paints/paint_food.dart';
 import 'package:food_app/views/cart_page.dart';
 import 'package:food_app/blocs/bloc_cart.dart';
+import 'package:food_app/views/home_page.dart';
+import 'package:food_app/views/item_danhmuc_page.dart';
 
 class DetailFood extends StatefulWidget {
   ItemDanhmuc? itemDanhmuc;
@@ -243,7 +245,7 @@ class _DetailFoodState extends State<DetailFood> {
                               String image=widget.itemDanhmuc!.image_item!;
                               CartModel cart=CartModel(name_cart: name,price_one_item: price,image_cart: image,number_cart: number);
                               await _cartBloc!.addCart(cart);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ItemDanhmucPage()));
                             },
                             child: Container(
                               decoration: BoxDecoration(

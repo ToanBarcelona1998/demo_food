@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:food_app/blocs/bloc_cart.dart';
 import 'package:food_app/models/enitys/model_cart.dart';
 
@@ -58,6 +59,18 @@ class _CartPageState extends State<CartPage> {
                                       fontSize: 22, fontFamily: "Chango"),
                                 ),
                               ),
+                              Positioned(
+                                right: 8,
+                                child: InkWell(
+                                  onTap: () {
+                                    _cartBloc!.delAllCart();
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    size: 30,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -79,52 +92,125 @@ class _CartPageState extends State<CartPage> {
                                     itemCount: snashot.data!.length,
                                     padding: EdgeInsets.zero,
                                     itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.only(top: 8),
-                                        child: Card(
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                6,
-                                            width: double.infinity,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      4,
-                                                  height: double.infinity,
-                                                  child: Image.network(
-                                                    snashot
-                                                        .data![index].image_cart!,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                      children: [
-                                                        Text(snashot.data![index]
-                                                            .name_cart!,style: TextStyle(fontSize: 18),),
-                                                        Text(snashot.data![index]
-                                                            .number_cart!
-                                                            .toString(),style: TextStyle(fontSize: 18),),
-                                                        Text(snashot.data![index]
-                                                            .price_one_item!
-                                                            .toString(),style: TextStyle(fontSize: 18),),
-                                                      ],
+                                      return Slidable(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(top: 8),
+                                          child: Card(
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  6,
+                                              width: double.infinity,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                    height: double.infinity,
+                                                    child: Image.network(
+                                                      snashot.data![index]
+                                                          .image_cart!,
+                                                      fit: BoxFit.fill,
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Text(
+                                                            snashot.data![index]
+                                                                .name_cart!,
+                                                            style: TextStyle(
+                                                                fontSize: 16),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(
+                                                                    text:
+                                                                        "Số lượng: ",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Color(
+                                                                            0xffb9c3cb)),
+                                                                  ),
+                                                                  TextSpan(
+                                                                    text: snashot
+                                                                        .data![
+                                                                            index]
+                                                                        .number_cart!
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Color(
+                                                                            0xffb9c3cb)),
+                                                                  ),
+                                                                ]),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(
+                                                                    text: snashot
+                                                                        .data![
+                                                                            index]
+                                                                        .price_one_item!
+                                                                        .toString(),
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      color: Color(
+                                                                          0xffd6681f),
+                                                                    ),
+                                                                  ),
+                                                                  TextSpan(
+                                                                    text:
+                                                                        " Vnd",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      color: Color(
+                                                                          0xffd6681f),
+                                                                    ),
+                                                                  ),
+                                                                ]),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
+                                        actions: [
+                                          IconSlideAction(
+                                            icon: Icons.delete,
+                                            color: Color(0xffe6f0fa),
+                                            onTap: (){
+                                              _cartBloc!.delCartId(snashot.data![index].id_cart!);
+                                            },
+                                          ),
+                                        ],
+                                        actionPane: SlidableDrawerActionPane(),
                                       );
                                     },
                                   ),
@@ -136,9 +222,6 @@ class _CartPageState extends State<CartPage> {
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
               ],
             ),
