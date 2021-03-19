@@ -39,23 +39,25 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 child: Column(
                   children: [
-                    CustomPaint(
-                      painter: PaintAppBar(),
-                      child: Container(
-                        alignment: Alignment.bottomRight,
-                        height: MediaQuery.of(context).size.height / 4,
-                        width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Text(
-                            "Our Menu's Restaurent",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: CustomPaint(
+                        painter: PaintAppBar(),
+                        child: Container(
+                          alignment: Alignment.bottomRight,
+                          height: MediaQuery.of(context).size.height / 4,
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Text(
+                              "Our Menu's Restaurent",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 17),
+                    SizedBox(height: 12),
                     Expanded(
                       child: StreamBuilder<List<Danhmuc>>(
                         stream: _danhmucBloc!.stream,
@@ -81,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Container(
                                         padding: EdgeInsets.all(8),
                                         alignment: Alignment.center,
-                                        height: 70,
+                                        height: 65,
                                         width: 70,
                                         decoration: BoxDecoration(
                                           borderRadius:
@@ -93,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                                       child: Text(
                                         snapshot.data![index].name_danhmuc!,
                                       ),

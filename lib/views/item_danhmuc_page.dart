@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/blocs/bloc_item_danhmuc.dart';
 import 'package:food_app/models/enitys/model_item_danhmuc.dart';
-import 'package:food_app/views/detail_item_food.dart';
+import 'package:food_app/views/detail_item_food_page.dart';
 
 class ItemDanhmucPage extends StatefulWidget {
   String? item_name;

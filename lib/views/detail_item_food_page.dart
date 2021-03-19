@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/blocs/bloc_detail_item.dart';
 import 'package:food_app/models/enitys/model_item_danhmuc.dart';
 import 'package:food_app/public/paints/paint_food.dart';
 
@@ -13,13 +12,11 @@ class DetailFood extends StatefulWidget {
 }
 
 class _DetailFoodState extends State<DetailFood> {
-  BlocDetailItem? _blocDetailItem;
-  int count = 0;
+  int ?count;
 
   @override
   void initState() {
-    // TODO: implement initState
-    _blocDetailItem = BlocDetailItem();
+    count=1;
     super.initState();
   }
 
@@ -43,7 +40,7 @@ class _DetailFoodState extends State<DetailFood> {
               Positioned(
                 top: 0,
                 child: Container(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 2.2,
                     width: MediaQuery.of(context).size.width,
                     child: Stack(
                       children: [
@@ -95,7 +92,7 @@ class _DetailFoodState extends State<DetailFood> {
                 child: CustomPaint(
                   painter: PaintFood(),
                   child: Container(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 1.8,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: EdgeInsets.all(12),
@@ -112,7 +109,7 @@ class _DetailFoodState extends State<DetailFood> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height:12,
                           ),
                           Container(
                             width: double.infinity,
@@ -122,12 +119,19 @@ class _DetailFoodState extends State<DetailFood> {
                                 InkWell(
                                   splashColor: Colors.amber,
                                   onTap: () {
+                                   setState(() {
+                                     if(count==0){
+                                       count=0;
+                                     }else{
+                                       count=count!-1;;
+                                     }
+                                   });
                                   },
                                   borderRadius: BorderRadius.circular(15),
                                   child: Container(
                                     alignment: Alignment.center,
                                     height: double.infinity,
-                                    width: 70,
+                                    width: 60,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Color(0xffe5eff5),
@@ -141,12 +145,12 @@ class _DetailFoodState extends State<DetailFood> {
                                 Container(
                                   alignment: Alignment.center,
                                   height: double.infinity,
-                                  width: 60,
+                                  width: 50,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6),
                                     color: Color(0xffe5eff5),
                                   ),
-                                  child: Text("0"),
+                                  child: Text("$count"),
                                 ),
                                 SizedBox(
                                   width: 8,
@@ -154,12 +158,19 @@ class _DetailFoodState extends State<DetailFood> {
                                 InkWell(
                                   splashColor: Colors.amber,
                                   onTap: () {
+                                   setState(() {
+                                     if(count==10){
+                                       count=0;
+                                     }else{
+                                       count=count!+1;
+                                     }
+                                   });
                                   },
                                   borderRadius: BorderRadius.circular(15),
                                   child: Container(
                                     alignment: Alignment.center,
                                     height: double.infinity,
-                                    width: 70,
+                                    width: 60,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Color(0xffe5eff5),
@@ -174,7 +185,7 @@ class _DetailFoodState extends State<DetailFood> {
                                       text: TextSpan(children: [
                                         TextSpan(
                                           text:
-                                          "${widget.itemDanhmuc!.price_item}",
+                                          "${widget.itemDanhmuc!.price_item!*count!}",
                                           style: TextStyle(fontSize: 18),
                                         ),
                                         TextSpan(
@@ -191,25 +202,27 @@ class _DetailFoodState extends State<DetailFood> {
                             height: 12,
                           ),
                           Expanded(
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Intro",
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                  SizedBox(
-                                    height: 12,
-                                  ),
-                                  Text(
-                                    widget.itemDanhmuc!.intro_item!,
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                ],
+                            child: SingleChildScrollView(
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Intro",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.underline),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Text(
+                                        widget.itemDanhmuc!.intro_item!,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -231,9 +244,6 @@ class _DetailFoodState extends State<DetailFood> {
                                     color: Colors.white),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
                           ),
                         ],
                       ),
