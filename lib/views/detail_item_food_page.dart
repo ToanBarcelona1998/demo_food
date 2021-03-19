@@ -245,7 +245,7 @@ class _DetailFoodState extends State<DetailFood> {
                               String image=widget.itemDanhmuc!.image_item!;
                               CartModel cart=CartModel(name_cart: name,price_one_item: price,image_cart: image,number_cart: number);
                               await _cartBloc!.addCart(cart);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ItemDanhmucPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
                             },
                             child: Container(
                               decoration: BoxDecoration(
