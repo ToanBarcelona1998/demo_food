@@ -34,7 +34,7 @@ class MyDatabase{
       List<int> bytes=data.buffer.asUint8List(data.offsetInBytes,data.lengthInBytes);
       await File(path).writeAsBytes(bytes,flush: true);
     }else{
-      print("Opening exists database");
+
     }
      _database=await openDatabase(path);
   }

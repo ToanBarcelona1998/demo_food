@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/blocs/bloc_item_danhmuc.dart';
 import 'package:food_app/models/enitys/model_item_danhmuc.dart';
+import 'package:food_app/views/cart_page.dart';
 import 'package:food_app/views/detail_item_food_page.dart';
 
 class ItemDanhmucPage extends StatefulWidget {
@@ -16,17 +17,20 @@ class ItemDanhmucPage extends StatefulWidget {
 class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
   ItemDanhmucBloc? _itemDanhmucBloc;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _itemDanhmucBloc = ItemDanhmucBloc();
+
     _itemDanhmucBloc!.getItemDanhmuc(widget.item_danhmuc_id!);
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+
     _itemDanhmucBloc!.dispose();
     super.dispose();
   }
@@ -57,7 +61,9 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                         child: Icon(Icons.keyboard_backspace_sharp),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                        },
                         child: Icon(Icons.shopping_cart_outlined),
                       ),
                     ],

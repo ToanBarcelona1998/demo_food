@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/models/enitys/model_cart.dart';
 import 'package:food_app/models/enitys/model_item_danhmuc.dart';
 import 'package:food_app/public/paints/paint_food.dart';
 import 'package:food_app/views/cart_page.dart';
+import 'package:food_app/blocs/bloc_cart.dart';
 
 class DetailFood extends StatefulWidget {
   ItemDanhmuc? itemDanhmuc;
@@ -13,16 +15,19 @@ class DetailFood extends StatefulWidget {
 }
 
 class _DetailFoodState extends State<DetailFood> {
+  CartBloc ?_cartBloc;
   int ?count;
 
   @override
   void initState() {
+    _cartBloc=CartBloc();
     count=1;
     super.initState();
   }
 
   @override
   void dispose() {
+    _cartBloc!.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -231,7 +236,15 @@ class _DetailFoodState extends State<DetailFood> {
                           ),
                           InkWell(
                             borderRadius: BorderRadius.circular(15),
-                            onTap: () {},
+                            onTap: () async{
+                              String name=widget.itemDanhmuc!.name_item!;
+                              int number=count!;
+                              int price=widget.itemDanhmuc!.price_item!*count!;
+                              String image=widget.itemDanhmuc!.image_item!;
+                              CartModel cart=CartModel(name_cart: name,price_one_item: price,image_cart: image,number_cart: number);
+                              await _cartBloc!.addCart(cart);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
