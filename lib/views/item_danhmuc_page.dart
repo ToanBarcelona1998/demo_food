@@ -109,7 +109,7 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
-                    "${widget.item_name}",
+                    "Item ${widget.item_name!.trim()}",
                     style: TextStyle(
                         color: Color(0xff000000),
                         fontFamily: "Chango",
@@ -153,7 +153,7 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                                           borderRadius:
                                               BorderRadius.circular(15),
                                           child: Image.network(
-                                            snapshot.data![index].image_item!,
+                                            snapshot.data![index].image_item!.trim(),
                                             fit: BoxFit.fill,
                                             width: 80,
                                             height: 70,
@@ -171,7 +171,7 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                                             children: [
                                               Text(
                                                 snapshot
-                                                    .data![index].name_item!,
+                                                    .data![index].name_item!.trim(),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
@@ -179,11 +179,11 @@ class _ItemDanhmucPageState extends State<ItemDanhmucPage> {
                                               ),
                                               Text(
                                                 snapshot
-                                                    .data![index].intro_item!,
+                                                    .data![index].intro_item!.trim(),
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                "${snapshot.data![index].price_item!} Vnd",
+                                                "${snapshot.data![index].price_item!.toString().trim()} Vnd",
                                                 style: TextStyle(
                                                     color: Color(0xff252a3e),
                                                     fontWeight:

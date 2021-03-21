@@ -4,8 +4,6 @@ import 'package:food_app/models/enitys/model_item_danhmuc.dart';
 import 'package:food_app/public/paints/paint_food.dart';
 import 'package:food_app/views/cart_page.dart';
 import 'package:food_app/blocs/bloc_cart.dart';
-import 'package:food_app/views/home_page.dart';
-import 'package:food_app/views/item_danhmuc_page.dart';
 
 class DetailFood extends StatefulWidget {
   ItemDanhmuc? itemDanhmuc;
@@ -56,7 +54,7 @@ class _DetailFoodState extends State<DetailFood> {
                           height: double.maxFinite,
                           width: double.maxFinite,
                           child: Image.network(
-                            widget.itemDanhmuc!.image_item!,
+                            widget.itemDanhmuc!.image_item!.trim(),
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -113,7 +111,7 @@ class _DetailFoodState extends State<DetailFood> {
                             alignment: Alignment.center,
                             width: double.infinity,
                             child: Text(
-                              widget.itemDanhmuc!.name_item!,
+                              widget.itemDanhmuc!.name_item!.trim(),
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
@@ -195,7 +193,7 @@ class _DetailFoodState extends State<DetailFood> {
                                       text: TextSpan(children: [
                                         TextSpan(
                                           text:
-                                          "${widget.itemDanhmuc!.price_item!*count!}",
+                                          "${(widget.itemDanhmuc!.price_item!*count!).toString().trim()}",
                                           style: TextStyle(fontSize: 18),
                                         ),
                                         TextSpan(
@@ -218,16 +216,17 @@ class _DetailFoodState extends State<DetailFood> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Intro",
+                                      "Intro Item",
                                       style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.bold,
                                           decoration: TextDecoration.underline),
                                     ),
+                                    SizedBox(height: 12,),
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 8),
                                       child: Text(
-                                        widget.itemDanhmuc!.intro_item!,
+                                        widget.itemDanhmuc!.intro_item!.trim(),
                                         style: TextStyle(fontSize: 16),
                                       ),
                                     ),

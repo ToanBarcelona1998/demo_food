@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.center,
                                       children: [
                                         InkWell(
                                           onTap: () {
@@ -151,11 +151,12 @@ class _HomePageState extends State<HomePage> {
                                                 .data![index].image_danhmuc!),
                                           ),
                                         ),
+                                        SizedBox(height: 12,),
                                         Padding(
                                           padding: const EdgeInsets.only(
                                               left: 8.0, right: 8.0),
                                           child: Text(
-                                            snapshot.data![index].name_danhmuc!,
+                                            snapshot.data![index].name_danhmuc!.trim() ,
                                           ),
                                         ),
                                       ],
@@ -196,9 +197,11 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
                             height: double.infinity,
-                            width: MediaQuery.of(context).size.width/4,
+                            width: MediaQuery.of(context).size.width / 4,
                             child: Image.network(
-                                listClone[index].image!,fit: BoxFit.fill,),
+                              listClone[index].image!,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         SizedBox(

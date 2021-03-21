@@ -86,6 +86,7 @@ class _CartPageState extends State<CartPage> {
                               } else if (!snashot.hasData) {
                                 return CircularProgressIndicator();
                               } else {
+                                // return Container();
                                 return Padding(
                                   padding: EdgeInsets.only(top: 12, bottom: 12),
                                   child: ListView.builder(
@@ -113,7 +114,7 @@ class _CartPageState extends State<CartPage> {
                                                     height: double.infinity,
                                                     child: Image.network(
                                                       snashot.data![index]
-                                                          .image_cart!,
+                                                          .image_cart!.trim(),
                                                       fit: BoxFit.fill,
                                                     ),
                                                   ),
@@ -132,7 +133,7 @@ class _CartPageState extends State<CartPage> {
                                                         children: [
                                                           Text(
                                                             snashot.data![index]
-                                                                .name_cart!,
+                                                                .name_cart!.trim(),
                                                             style: TextStyle(
                                                                 fontSize: 16),
                                                           ),
@@ -153,12 +154,12 @@ class _CartPageState extends State<CartPage> {
                                                                         .data![
                                                                             index]
                                                                         .number_cart!
-                                                                        .toString(),
+                                                                        .toString().trim(),
                                                                     style: TextStyle(
                                                                         fontSize:
                                                                             16,
                                                                         color: Color(
-                                                                            0xffb9c3cb)),
+                                                                            0xffb9c3cb),),
                                                                   ),
                                                                 ]),
                                                           ),
@@ -170,7 +171,7 @@ class _CartPageState extends State<CartPage> {
                                                                         .data![
                                                                             index]
                                                                         .price_one_item!
-                                                                        .toString(),
+                                                                        .toString().trim(),
                                                                     style:
                                                                         TextStyle(
                                                                       fontSize:
